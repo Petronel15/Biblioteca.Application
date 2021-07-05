@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="ModuleB.Views.ViewD"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Loans management"/>
+
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="5" Name="Loans" IsReadOnly="True"
+                  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Client Name" Binding="{Binding Path=ClientsModel.FirstName}"/>
+                <DataGridTextColumn Header="Book Title" Binding="{Binding Path=BooksModel.Title}"/>
+                <DataGridTextColumn Header="Loan Date" Binding="{Binding Path=LoansModel.LoanDate}"/>
+                <DataGridTextColumn Header="Return Date" Binding="{Binding Path=LoansModel.ReturnDate}"/>
+
+                <DataGridTemplateColumn Header="Update Loan">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Delete Loan">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2" HorizontalAlignment="Center" Content="Display loans" Margin="5" 
+                                Command="{Binding GetLoansCommand}"/>
+        <Grid Grid.Row="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Add new Loan" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Grid Margin="5" x:Name="AddNewLoanGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Client Name"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Book Title" />
+                        <TextBox Grid.Row="1" Grid.Column="1" />
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Loan Date"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Return Date"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" />
+
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Add" Margin="5" 
+                                />
+
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="5">
+                <StackPanel Margin="5">
+                    <Label Content="Update Loan" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    <Grid Margin="5" x:Name="UpdateLoanGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Client Name"/>
+                        <TextBox Grid.Row="0" Grid.Column="1"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Book Title"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Loan Date"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" />
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Return Date"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" />
+
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Update" Margin="5"/>
+
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
+

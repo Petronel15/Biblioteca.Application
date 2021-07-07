@@ -16,8 +16,6 @@ namespace ModuleB.ViewModels
         private ObservableCollection<BookModel> booksModelComboBox = new ObservableCollection<BookModel>();
         private ObservableCollection<string> clientsModelComboBoxDisplay = new ObservableCollection<string>();
         private ObservableCollection<string> booksModelComboBoxDisplay = new ObservableCollection<string>();
-        private BookModel comboBoxSelectedBook;
-        private ClientModel comboBoxSelectedClient;
         private string comboBoxSelectedBookDisplay;
         private string comboBoxSelectedClientDisplay;
         private LoanModel addLoan;
@@ -145,38 +143,36 @@ namespace ModuleB.ViewModels
                 }
             }
         }
-        public BookModel ComboBoxSelectedBook
+        public ObservableCollection<LoanModel> LoansModel
         {
             get
             {
-                return comboBoxSelectedBook;
+                return loansModel;
             }
             set
             {
-                if (value != comboBoxSelectedBook)
+                if (value != loansModel)
                 {
-                    comboBoxSelectedBook = value;
+                    loansModel = value;
                     OnPropertyChanged();
                 }
             }
         }
-
-        public ClientModel ComboBoxSelectedClient
+        public LoanModel SelectedLoanGrid
         {
             get
             {
-                return comboBoxSelectedClient;
+                return selectedLoanGrid;
             }
             set
             {
-                if (value != comboBoxSelectedClient)
+                if (value != selectedLoanGrid)
                 {
-                    comboBoxSelectedClient = value;
+                    selectedLoanGrid = value;
                     OnPropertyChanged();
                 }
             }
         }
-
         public string ComboBoxSelectedBookDisplay
         {
             get
@@ -192,7 +188,6 @@ namespace ModuleB.ViewModels
                 }
             }
         }
-
         public string ComboBoxSelectedClientDisplay
         {
             get
@@ -208,6 +203,7 @@ namespace ModuleB.ViewModels
                 }
             }
         }
+
         public async void GetClientsAction()
         {
             try
@@ -246,37 +242,7 @@ namespace ModuleB.ViewModels
             {
                 Console.WriteLine($"Error: '{ex}'");
             }
-        }
-        public LoanModel SelectedLoanGrid
-        {
-            get
-            {
-                return selectedLoanGrid;
-            }
-            set
-            {
-                if (value != selectedLoanGrid)
-                {
-                    selectedLoanGrid = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public ObservableCollection<LoanModel> LoansModel
-        {
-            get
-            {
-                return loansModel;
-            }
-            set
-            {
-                if (value != loansModel)
-                {
-                    loansModel = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        }   
        
         public async void GetLoansAction()
         {
@@ -369,6 +335,7 @@ namespace ModuleB.ViewModels
                 Console.WriteLine($"Error: '{ex}'");
             }
         }
+
         public void EditLoanAction(LoanModel SelectedLoanGrid)
         {
             try
@@ -388,6 +355,7 @@ namespace ModuleB.ViewModels
                 Console.WriteLine($"Error: '{ex}'");
             }
         }
+
         public async void DeleteLoanAction(LoanModel loanToDelete)
         {
             try
@@ -401,6 +369,7 @@ namespace ModuleB.ViewModels
                 Console.WriteLine($"Error: '{ex}'");
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {

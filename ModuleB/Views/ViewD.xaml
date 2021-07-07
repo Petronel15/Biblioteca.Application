@@ -121,8 +121,8 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="Book Title"/>
                         <ComboBox Grid.Row="1" Grid.Column="1" IsSynchronizedWithCurrentItem="True"
                                   ItemsSource="{Binding Path=BooksModelComboBoxDisplay, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding Path=ComboBoxSelectedBookDisplay}"
-                                  ></ComboBox>
+                                  SelectedItem="{Binding Path=ComboBoxSelectedBookDisplay}">
+                        </ComboBox>
 
                         <Label Grid.Row="2" Grid.Column="0" Content="Loan Date"/>
                         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding EditLoan.LoanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>

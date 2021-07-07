@@ -2,6 +2,7 @@
 using Biblioteca.Core.DomainModels;
 using Biblioteca.Services.Automapper;
 using Biblioteca.Services.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,8 +43,7 @@ namespace Biblioteca.Services.Services.LoanService
 
         public IEnumerable<LoanModel> GetLoans()
         {
-            var loans = loanRepository.Table.ToList();
-
+            var loans = loanRepository.Table.Include(c=>c.Book).Include(c=>c.Client).ToList();
             return loans.Select(c => c.ToModel()).ToList();
         }
 
@@ -65,15 +65,13 @@ namespace Biblioteca.Services.Services.LoanService
         {
             try
             {
-                var entity = loan.ToEntity();
                 var dbEntity = loanRepository.Table.FirstOrDefault(x => x.Id == loanId);
-                if (dbEntity != null)
+                if (dbEntity == null)
                 {
-                    dbEntity.LoanDate = loan.LoanDate;
-                    dbEntity.ReturnDate = loan.ReturnDate;
-                    
-                    loanRepository.Update(dbEntity);
+                    throw new ArgumentException("Item cannot be found");
                 }
+                var entity = loan.ToEntity();
+                loanRepository.Update(entity);
                 // return GetClientByID(clientId);
                 return entity.ToModel();
             }

@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             x:Name="_usercontrol">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -14,17 +15,18 @@
         <Label Grid.Row="0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Loans management"/>
 
         <DataGrid Grid.Row="1" AutoGenerateColumns="False" Margin="5" Name="Loans" IsReadOnly="True"
-                  >
+                  ItemsSource="{Binding Path=LoansModel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Client Name" Binding="{Binding Path=ClientsModel.FirstName}"/>
-                <DataGridTextColumn Header="Book Title" Binding="{Binding Path=BooksModel.Title}"/>
-                <DataGridTextColumn Header="Loan Date" Binding="{Binding Path=LoansModel.LoanDate}"/>
-                <DataGridTextColumn Header="Return Date" Binding="{Binding Path=LoansModel.ReturnDate}"/>
+                <DataGridTextColumn Header="Client Name" Binding="{Binding ClientName}"/>
+                <DataGridTextColumn Header="Book Title" Binding="{Binding BookName}"/>
+                <DataGridTextColumn Header="Loan Date" Binding="{Binding LoanDate}"/>
+                <DataGridTextColumn Header="Return Date" Binding="{Binding ReturnDate}"/>
 
                 <DataGridTemplateColumn Header="Update Loan">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" />
+                            <Button Content="Edit" Command="{Binding DataContext.EditLoanCommand, ElementName=_usercontrol}"
+                                                             CommandParameter="{Binding}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -32,7 +34,8 @@
                 <DataGridTemplateColumn Header="Delete Loan">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" />
+                            <Button Content="Delete" Command="{Binding DataContext.DeleteLoanCommand, ElementName=_usercontrol}"
+                                                             CommandParameter="{Binding}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -68,19 +71,23 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Client Name"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" IsSynchronizedWithCurrentItem="True"
+                                  ItemsSource="{Binding Path=ClientsModelComboBoxDisplay, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Path=ComboBoxSelectedClientDisplay}"></ComboBox>
 
                         <Label Grid.Row="1" Grid.Column="0" Content="Book Title" />
-                        <TextBox Grid.Row="1" Grid.Column="1" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" IsSynchronizedWithCurrentItem="True"
+                                  ItemsSource="{Binding Path=BooksModelComboBoxDisplay, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Path=ComboBoxSelectedBookDisplay}"></ComboBox>
 
                         <Label Grid.Row="2" Grid.Column="0" Content="Loan Date"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding AddLoan.LoanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="3" Grid.Column="0" Content="Return Date"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding AddLoan.ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Add" Margin="5" 
-                                />
+                                Command="{Binding AddLoanCommand}"/>
 
                     </Grid>
 
@@ -107,18 +114,24 @@
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" Grid.Column="0" Content="Client Name"/>
-                        <TextBox Grid.Row="0" Grid.Column="1"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" IsSynchronizedWithCurrentItem="True"
+                                  ItemsSource="{Binding Path=ClientsModelComboBoxDisplay, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Path=ComboBoxSelectedClientDisplay}"></ComboBox>
 
                         <Label Grid.Row="1" Grid.Column="0" Content="Book Title"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" IsSynchronizedWithCurrentItem="True"
+                                  ItemsSource="{Binding Path=BooksModelComboBoxDisplay, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding Path=ComboBoxSelectedBookDisplay}"
+                                  ></ComboBox>
 
                         <Label Grid.Row="2" Grid.Column="0" Content="Loan Date"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding EditLoan.LoanDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="3" Grid.Column="0" Content="Return Date"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding EditLoan.ReturnDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Update" Margin="5"/>
+                        <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Update" Margin="5"
+                                Command="{Binding UpdateLoanCommand}"/>
 
                     </Grid>
 

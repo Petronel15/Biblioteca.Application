@@ -12,7 +12,6 @@ namespace ModuleB.ViewModels
     public class ViewCViewModel : BindableBase
     {
         private ObservableCollection<ClientModel> clientsModel = new ObservableCollection<ClientModel>();
-        ClientModel newClientModel = new ClientModel();
         private ClientModel addClient;
         private ClientModel editClient;
         private ClientModel selectedClientGrid;
@@ -26,7 +25,7 @@ namespace ModuleB.ViewModels
             editClient = new ClientModel();
         }
 
-        public Prism.Commands.DelegateCommand GetClientsCommand
+        public DelegateCommand GetClientsCommand
         {
             get
             {
@@ -34,7 +33,7 @@ namespace ModuleB.ViewModels
             }
         }
 
-        public Prism.Commands.DelegateCommand AddClientCommand
+        public DelegateCommand AddClientCommand
         {
             get
             {

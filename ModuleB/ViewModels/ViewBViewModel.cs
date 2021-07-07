@@ -27,7 +27,7 @@ namespace ModuleB.ViewModels
             updateBook = new BookModel();
         }
 
-        public Prism.Commands.DelegateCommand GetBooksCommand
+        public DelegateCommand GetBooksCommand
         {
             get
             {
@@ -35,7 +35,7 @@ namespace ModuleB.ViewModels
             }
         }
 
-        public Prism.Commands.DelegateCommand AddBookCommand
+        public DelegateCommand AddBookCommand
         {
             get
             {
